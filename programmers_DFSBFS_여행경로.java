@@ -4,7 +4,6 @@ class Solution {
     public static ArrayList<String> answer = new ArrayList<String>();
     public static boolean[] visited;
     public static String route="";
-    
     //이거 하면서 진짜 많이 배운 것같다. 이런 생각을 맨처음에 못했거든...
     //첫번째 시도, Set을 이용해 공항을 뽑아내서 연결시키면 되지않을까?
     //두번째 시도, 엣지를 전부 정렬한 다음 ICN을 찾아서 가면되지않을까? (엣지가 몇개 까지 들어올줄알고..? 티켓을 다쓰는것은 어떻게 생각하려고..?)
