@@ -8,14 +8,15 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
 
+
 public class BOJ_1260_DFSandBFS {
 
-	static int N; // Á¤Á¡ °³¼ö
-	static int M; // °£¼± °³¼ö
-	static int V; // Å½»ö ½ÃÀÛÁ¡
+	static int N; // ì •ì  ê°œìˆ˜
+	static int M; // ê°„ì„  ê°œìˆ˜
+	static int V; // íƒìƒ‰ ì‹œì‘ì 
 
 	static LinkedList[] line;
-	// Á¤Á¡ÀÇ °³¼ö N(1 ¡Â N ¡Â 1,000)
+	// ì •ì ì˜ ê°œìˆ˜ N(1 â‰¤ N â‰¤ 1,000)
 	static int[] visited = new int[1001];
 
 	public static void main(String[] args) throws IOException {
@@ -47,7 +48,7 @@ public class BOJ_1260_DFSandBFS {
 			Collections.sort(line[i]);
 		}
 
-		// µğ¹ö±ë¿ë Ãâ·Â
+		// ë””ë²„ê¹…ìš© ì¶œë ¥
 //		for (int i = 1; i <= N; i++) {
 //			for(int j=0;j<line[i].size();j++) {
 //				System.out.print(line[i].get(j)+ " ");
@@ -56,15 +57,15 @@ public class BOJ_1260_DFSandBFS {
 //		}
 		
 		
-		// dfs ¼öÇà °á°ú
+		// dfs ìˆ˜í–‰ ê²°ê³¼
 		dfs(V);
 		
-		//ÃÊ±âÈ­ 
+		//ì´ˆê¸°í™” 
 		for (int i = 0; i < 1001; i++) {
 			visited[i] = 0;
 		}
 		System.out.println();
-		// bfs ¼öÇà °á°ú
+		// bfs ìˆ˜í–‰ ê²°ê³¼
 		bfs(V);
 
 	}
