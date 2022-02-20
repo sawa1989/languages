@@ -8,6 +8,7 @@ public class BOJ_2606_Virus {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
+		
 		String str = br.readLine();
 		int Computers = Integer.parseInt(str);
 
