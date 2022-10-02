@@ -1,0 +1,100 @@
+import java.io.*;
+import java.util.*;
+
+public class tomato_7576{
+
+    static int N;
+    static int M;
+
+    // 상 하  좌 우  
+    static int[] dx = {0,0,-1,1};
+    static int[] dy = {-1,1,0,0};
+
+    static int[][] tomato;
+    static boolean[][] visited;
+
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+ 
+        String[] str = br.readLine().split(" ");
+
+        N = Integer.parseInt(str[0]);
+        M = Integer.parseInt(str[1]);
+
+        tomato = new int[N][M];
+        visited = new boolean[N][M];
+
+        LinkedList<int[]> list = new LinkedList<>();
+
+        for(int x=0;x<M;x++){
+            String[] str1 = br.readLine().split(" ");
+            for(int y=0;y<N;y++){
+                tomato[y][x] = Integer.parseInt(str1[y]);
+                if(tomato[y][x]==1){
+                    list.add(new int[]{x,y,1});
+                    visited[y][x]=true;
+                }
+            }
+        }
+
+        while(!list.isEmpty()){
+            int[] temp = list.poll();
+            int temp_x= temp[0];
+            int temp_y= temp[1];
+            int temp_tomatoday = temp[2];
+            temp_tomatoday++;
+
+            for(int d=0;d<4;d++){
+                int newX= temp_x+dx[d];
+                int newY=temp_y+dy[d];
+
+                //out of boud
+                if(newX<0|| newY <0 || newX>=M ||newY>=N){
+                    continue;
+                }
+                //visited
+                if(visited[newY][newX]==true){
+                    continue;
+               }
+
+               //not tomato
+               if(tomato[newY][newX]==-1){
+                continue;
+               }
+
+               visited[newY][newX]=true;
+               tomato[newY][newX]=temp_tomatoday;
+               list.add(new int[]{newX, newY, temp_tomatoday});
+            }
+        }
+        // for(int x=0;x<M;x++){
+        //     for(int y=0;y<N;y++){
+        //        System.out.print(tomato[y][x]+ " ");
+        //     }
+        //     System.out.println("");
+        // }
+
+        int tomato_day =1;
+        boolean check_tomato_flag = true;
+        for(int x=0;x<M;x++){
+            for(int y=0;y<N;y++){
+                if(tomato[y][x]==0){
+                    check_tomato_flag=false;
+                }
+
+                if(tomato_day < tomato[y][x]){
+                    tomato_day = tomato[y][x];
+                                }
+            }
+        }
+
+        if(check_tomato_flag==false){
+            System.out.println("-1");
+        }else{
+            System.out.println(tomato_day-1);
+        }
+
+                
+       
+    }
+}
