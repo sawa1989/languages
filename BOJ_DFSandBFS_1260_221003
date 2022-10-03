@@ -1,0 +1,97 @@
+import java.util.*;
+import java.io.*;
+
+public class DFSandBFS_1260 {
+
+    static int N;
+    static int M;
+    static int V;
+
+    static ArrayList<Integer>[] nodeList;
+    static boolean[] visited;
+
+    public static void dfs(int V){
+        if(visited[V]==true){
+            return;
+        }
+
+        System.out.print(V + " ");
+        visited[V]=true;
+
+        for(int i=0;i<nodeList[V].size();i++){
+            if(visited[nodeList[V].get(i)]==true){
+                continue;
+            }
+
+            dfs(nodeList[V].get(i));
+        }
+    }
+
+    public static void bfs(){
+        LinkedList<Integer> list = new LinkedList<>();
+
+        list.add(V);
+        visited[V]=true;
+
+        while(!list.isEmpty()){
+            int temp = list.poll();
+            System.out.print(temp+" ");
+
+            for(int i=0;i<nodeList[temp].size();i++){
+                if(visited[nodeList[temp].get(i)]==true){
+                    continue;
+                }
+
+                list.add(nodeList[temp].get(i));
+                visited[nodeList[temp].get(i)]=true;
+            }
+        }
+        
+        return;
+    }
+
+    public static void main(String args[]) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        // init
+        String[] str = br.readLine().split(" ");
+        N = Integer.parseInt(str[0]);
+        M = Integer.parseInt(str[1]);
+        V = Integer.parseInt(str[2]);
+
+        nodeList = new ArrayList[N+1];
+        for(int i=1;i<N+1;i++){
+            nodeList[i]=new ArrayList<Integer>();
+        }
+        visited = new boolean[N+1];
+
+
+        //init edge list 
+        for(int i=1;i<M+1;i++){
+            String[] str1 = br.readLine().split(" ");
+            int temp_now = Integer.parseInt(str1[0]);
+            int temp_next = Integer.parseInt(str1[1]);
+
+            // 양방향
+            nodeList[temp_now].add(temp_next);
+            nodeList[temp_next].add(temp_now);
+        }
+
+        for(int i=1;i<N+1;i++){
+            Collections.sort(nodeList[i]);
+        }
+
+        //dfs
+        dfs(V);
+
+        Arrays.fill(visited, false);
+        System.out.println("");
+
+        //bfs
+        bfs();
+
+
+    }
+    
+}
