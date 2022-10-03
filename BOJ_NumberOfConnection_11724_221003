@@ -1,0 +1,92 @@
+import java.util.*;
+import java.io.*;
+
+public class NumberOfConnection_11724{
+
+    static int N;
+    static int M;
+
+    static ArrayList<Integer>[] nodelist;
+    static boolean[] visited;
+
+    public static void bfs(int start){
+        LinkedList<Integer> list = new LinkedList<Integer>();
+
+        list.add(start);
+        visited[start]=true;
+
+        while(!list.isEmpty()){
+            int temp = list.poll();
+            
+            for(int j=0;j<nodelist[temp].size();j++){
+                if(visited[nodelist[temp].get(j)]==true){
+                    continue;
+                }
+
+                list.add(nodelist[temp].get(j));
+                visited[nodelist[temp].get(j)]=true;
+            }
+
+        }
+    }
+
+    public static void dfs(int start){
+        visited[start]=true;
+
+        for(int x=0;x<nodelist[start].size();x++){
+            if(visited[nodelist[start].get(x)]==true){
+                continue;
+            }
+
+            dfs(nodelist[start].get(x));
+        }
+    }
+
+    public static void main(String[] args) throws IOException{        
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        String[] str = br.readLine().split(" ");
+
+        // 1 ≤ N ≤ 1,000, 0 ≤ M ≤ N×(N-1)/2 인접 리스트 써야겠다. 연습삼아 하는 거니까!
+        N = Integer.parseInt(str[0]);
+        M = Integer.parseInt(str[1]);
+        // init
+        nodelist = new ArrayList[N+1];
+        for(int i=0;i<N+1;i++){
+            nodelist[i] = new ArrayList<Integer>();
+        }
+
+        visited = new boolean[N+1];
+        
+        for(int i=0;i<M;i++){
+            String[] str1 = br.readLine().split(" ");
+            int temp_node = Integer.parseInt(str1[0]);
+            int temp_next = Integer.parseInt(str1[1]);
+            //방향이 없는 그래프 
+            nodelist[temp_node].add(temp_next);
+            nodelist[temp_next].add(temp_node);
+        }
+
+        // for(int x=0;x<N+1;x++){
+        //     for(int y=0;y<nodelist[x].size();y++){
+        //         System.out.print(nodelist[x].get(y)+" ");
+        //     }
+        //     System.out.println(" ");
+        // }
+
+        int number_of_connections = 0;
+        //연결 요소의 개수 확인
+        for(int i=1;i<N+1;i++){
+            if(visited[i]==false){
+                //dfs(i);
+                bfs(i);
+                number_of_connections++;
+            }
+        }
+
+        System.out.println(number_of_connections);
+        return;
+    }
+
+}
