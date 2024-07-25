@@ -24,7 +24,6 @@ while ( start <= end):
     if count >= C:
         start = mid+1
         result = mid
-        print(start)
     else: 
         end = mid-1
 
